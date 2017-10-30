@@ -3,13 +3,19 @@ import PostgreSQLProvider
 
 final class User: Model {
     let storage: Storage = Storage()
+    let username: String
     
-    init() {}
+    init(username: String) {
+        self.username = username
+    }
     
-    init(row: Row) throws {}
+    init(row: Row) throws {
+        self.username = try row.get("username")
+    }
     
     func makeRow() throws -> Row {
-        let row = Row()
+        var row = Row()
+        try row.set("username", username)
         return row
     }
 }
