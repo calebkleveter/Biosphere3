@@ -2,7 +2,7 @@ import Vapor
 import PostgreSQLProvider
 
 final class User: Model {
-    var storage: Storage = Storage()
+    let storage: Storage = Storage()
     
     init(row: Row) throws {}
     
