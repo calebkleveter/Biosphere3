@@ -4,6 +4,8 @@ import PostgreSQLProvider
 final class User: Model {
     let storage: Storage = Storage()
     
+    init() {}
+    
     init(row: Row) throws {}
     
     func makeRow() throws -> Row {
