@@ -1,4 +1,3 @@
-import Vapor
 import PostgreSQLProvider
 
 final class User: Model {
