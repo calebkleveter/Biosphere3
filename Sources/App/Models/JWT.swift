@@ -1,0 +1,3 @@
+import JWT
+
+struct JWTConfig {}
