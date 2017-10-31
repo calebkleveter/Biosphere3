@@ -6,6 +6,7 @@ extension User: Preparation {
             user.id()
             user.string("username")
             user.string("email")
+            user.string("password")
         })
     }
     
