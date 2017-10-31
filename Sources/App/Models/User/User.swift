@@ -17,18 +17,8 @@ final class User: Model {
     }
     
     init(row: Row) throws {
-        let passwordBytes = try (row.get("password") as String).makeBytes()
-        
         self.username = try row.get("username")
         self.email = try row.get("email")
-        self.password = try User.hasher.make(passwordBytes).makeString()
-    }
-    
-    func makeRow() throws -> Row {
-        var row = Row()
-        try row.set("username", username)
-        try row.set("email", email)
-        try row.set("password", password)
-        return row
+        self.password = try row.get("password")
     }
 }
