@@ -1,3 +1,5 @@
 import JWT
 
-struct JWTConfig {}
+struct JWTConfig {
+    static let signerKey = "smokey-atmosphere-38"
+}
