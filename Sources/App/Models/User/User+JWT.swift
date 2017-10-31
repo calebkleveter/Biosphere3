@@ -18,4 +18,17 @@ extension User {
             ])
         return payload
     }
+    
+    func createJWT()throws -> String {
+        do {
+            let payload = try self.createPayload()
+            let headers = JWTConfig.headers
+            let signer = JWTConfig.signer
+            let jwt = try JWT(headers: headers, payload: payload, signer: signer)
+            let token = try jwt.createToken()
+            return token
+        } catch {
+            throw JWTError.createKey
+        }
+    }
 }
