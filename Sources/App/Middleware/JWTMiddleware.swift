@@ -6,10 +6,11 @@ final class JWTMiddleware: Middleware {
         guard let token = request.headers["Authorization"]?.string else {
             return try Response(status: Status.forbidden, json: JSON(node: ["error": "Authentication token missing", "status": 403]))
         }
-        if token.verify() {
+        do {
+            try token.verify()
             return try next.respond(to: request)
-        } else {
-            return try Response(status: Status.forbidden, json: JSON(node: ["error": "Authentication token not verified", "status": 403]))
+        } catch let error as JWTFailure {
+            return try Response(status: Status.forbidden, json: JSON(node: ["error": error.description, "status": 403]))
         }
     }
 }
