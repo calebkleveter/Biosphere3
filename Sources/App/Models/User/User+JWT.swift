@@ -1,7 +1,7 @@
 import JWT
 
 extension User {
-    func createPayload()throws -> JSON {
+    func payload()throws -> JSON {
         guard let id = self.id?.int else {
             throw JWTError.createKey
         }
@@ -21,7 +21,7 @@ extension User {
     
     func createJWT()throws -> String {
         do {
-            let payload = try self.createPayload()
+            let payload = try self.payload()
             let headers = JWTConfig.headers
             let signer = JWTConfig.signer
             let jwt = try JWT(headers: headers, payload: payload, signer: signer)
