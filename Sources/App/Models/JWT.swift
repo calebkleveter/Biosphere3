@@ -25,4 +25,13 @@ extension Token {
             return true
         } catch { return false }
     }
+    
+    func verifyIssuer() -> Bool {
+        do {
+            let receivedJWT = try JWT(token: self)
+            let issuerClaim = IssuerClaim(string: "biosphere3")
+            try receivedJWT.verifyClaims([issuerClaim])
+            return true
+        } catch { return false }
+    }
 }
