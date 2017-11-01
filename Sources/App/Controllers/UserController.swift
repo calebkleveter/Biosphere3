@@ -32,6 +32,8 @@ final class UserController {
     }
     
     func me(_ request: Request)throws -> ResponseRepresentable {
-        return "ME"
+        let token = request.token
+        let email = try token.get(.email)
+        return try JSON(node: ["email": email])
     }
 }
