@@ -19,7 +19,7 @@ extension User {
         return payload
     }
     
-    func jwt()throws -> String {
+    func jwt()throws -> Token {
         do {
             let payload = try self.payload()
             let headers = JWTConfig.headers
