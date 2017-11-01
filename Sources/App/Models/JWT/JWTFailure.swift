@@ -4,7 +4,7 @@ enum JWTFailure: Error, CustomStringConvertible {
     case signatureVerificationFailed
     case issuerVerificationFailed
     case tokenIsExpired
-    case payloadCreationFaile
+    case payloadCreationFailed
     case createJWTFailed
     
     var description: String {
