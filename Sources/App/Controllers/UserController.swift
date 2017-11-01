@@ -6,4 +6,8 @@ final class UserController {
     init(drop: Droplet) {
         self.drop = drop
     }
+    
+    func configureRoutes() {
+        
+    }
 }
