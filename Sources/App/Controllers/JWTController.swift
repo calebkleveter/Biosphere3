@@ -17,7 +17,7 @@ final class JWTController {
         guard let jwt = request.headers["Authorization"]?.string else {
             return try JSON(node: ["error": "Bad request. Missing required header"])
         }
-        let verified = jwt.canVerifySigniture(withSigner: JWTConfig.signerKey)
+        let verified = jwt.verify()
         return try JSON(node: ["verified": verified])
     }
 }
