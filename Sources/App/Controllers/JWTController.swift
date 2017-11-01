@@ -10,10 +10,10 @@ final class JWTController {
     
     func configureRoutes() {
         let token = drop.grouped("token")
-        token.get("verify", handler: verfiy)
+        token.get("verify", handler: verify)
     }
     
-    func verfiy(_ request: Request)throws -> ResponseRepresentable {
+    func verify(_ request: Request)throws -> ResponseRepresentable {
         guard let jwt = request.headers["Authorization"]?.string else {
             return try JSON(node: ["error": "Bad request. Missing required header"])
         }
