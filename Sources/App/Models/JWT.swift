@@ -34,4 +34,14 @@ extension Token {
             return true
         } catch { return false }
     }
+    
+    func verify() -> Bool {
+        let issuerVerified = self.verifyIssuer()
+        let signitureVerified = self.canVerifySigniture(withSigner: JWTConfig.signerKey)
+        
+        if !self.isExpired && issuerVerified && signitureVerified {
+            return true
+        }
+        return false
+    }
 }
