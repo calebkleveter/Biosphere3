@@ -15,7 +15,7 @@ enum JWTFailure: Error, CustomStringConvertible {
             return "Could not verify JWT issuer"
         case .tokenIsExpired:
             return "Your token is expired"
-        case .payloadCreationFaile:
+        case .payloadCreationFailed:
             return "Error creating JWT payload"
         case .createJWTFailed:
             return "Error creating JWT token"
