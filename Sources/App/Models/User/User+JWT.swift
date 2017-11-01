@@ -3,7 +3,7 @@ import JWT
 extension User {
     func payload()throws -> JSON {
         guard let id = self.id?.int else {
-            throw JWTError.createKey
+            throw JWTFailure.payloadCreationFailed
         }
         let now = Date()
         let dateAsTimeDouble = now.timeIntervalSince1970
@@ -28,7 +28,7 @@ extension User {
             let token = try jwt.createToken()
             return token
         } catch {
-            throw JWTError.createKey
+            throw JWTFailure.createJWTFailed
         }
     }
 }
