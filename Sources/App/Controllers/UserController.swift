@@ -9,10 +9,10 @@ final class UserController {
     
     func configureRoutes() {
         let user = drop.grouped("user")
-        user.post("create", handler: createUser)
+        user.post("create", handler: create)
     }
     
-    func createUser(_ request: Request)throws -> ResponseRepresentable {
+    func create(_ request: Request)throws -> ResponseRepresentable {
         guard let username = request.data["username"]?.string,
               let password = request.data["password"]?.string,
               let email = request.data["email"]?.string else {
