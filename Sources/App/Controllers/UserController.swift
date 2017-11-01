@@ -10,6 +10,9 @@ final class UserController {
     func configureRoutes() {
         let user = drop.grouped("user")
         user.post("create", handler: create)
+        
+        let protected = user.grouped(JWTMiddleware())
+        protected.get("me", handler: me)
     }
     
     func create(_ request: Request)throws -> ResponseRepresentable {
@@ -26,5 +29,9 @@ final class UserController {
         } catch let error {
             return try JSON(node: ["error": error])
         }
+    }
+    
+    func me(_ request: Request)throws -> ResponseRepresentable {
+        return "ME"
     }
 }
