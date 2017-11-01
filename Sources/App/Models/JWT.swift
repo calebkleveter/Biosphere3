@@ -10,6 +10,14 @@ struct JWTConfig {
 typealias Token = String
 
 extension Token {
+    var isExpired: Bool {
+        do {
+            let receivedJWT = try JWT(token: self)
+            try receivedJWT.verifyClaims([ExpirationTimeClaim(date: Date())])
+            return false
+        } catch { return true }
+    }
+    
     func canVerifySigniture(withSigner signer: String) -> Bool {
         do {
             let receivedJWT = try JWT(token: self)
