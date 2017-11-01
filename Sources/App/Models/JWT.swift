@@ -7,10 +7,12 @@ struct JWTConfig {
     static let expirationTime = 1000
 }
 
-extension JWT {
-    static func canVerifySigniture(fromToken token: String, withSigner signer: String) -> Bool {
+typealias Token = String
+
+extension Token {
+    func canVerifySigniture(withSigner signer: String) -> Bool {
         do {
-            let receivedJWT = try JWT(token: token)
+            let receivedJWT = try JWT(token: self)
             try receivedJWT.verifySignature(using: HS256(key: signer.bytes))
             return true
         } catch { return false }
