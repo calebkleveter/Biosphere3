@@ -6,6 +6,7 @@ enum JWTFailure: Error, CustomStringConvertible {
     case tokenIsExpired
     case payloadCreationFailed
     case createJWTFailed
+    case payloadParsingFailed
     
     var description: String {
         switch self {
@@ -19,6 +20,8 @@ enum JWTFailure: Error, CustomStringConvertible {
             return "Error creating JWT payload"
         case .createJWTFailed:
             return "Error creating JWT token"
+        case .payloadParsingFailed:
+            return "Error parsing JWT payload"
         }
     }
 }
