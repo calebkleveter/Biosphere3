@@ -29,4 +29,14 @@ extension Token {
         do { try self.canVerifySigniture(withSigner: JWTConfig.signerKey) }
         catch { throw JWTFailure.signatureVerificationFailed }
     }
+    
+    func get(_ dataKey: JWTPayloadKey)throws -> String {
+        do {
+            let receivedJWT = try JWT(token: self)
+            let payload = receivedJWT.payload
+            return try payload.get(dataKey.key)
+        } catch {
+            throw JWTFailure.payloadParsingFailed
+        }
+    }
 }
