@@ -5,9 +5,9 @@ enum JWTPayloadKey {
     
     var key: String {
         switch self {
-        case .email: return "email"
-        case .id: return "id"
-        case .expiration: return "expiration"
+        case .email: return "userEmail"
+        case .id: return "userId"
+        case .expiration: return "exp"
         }
     }
 }
