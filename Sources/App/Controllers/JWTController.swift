@@ -6,4 +6,8 @@ final class JWTController {
     init(drop: Droplet) {
         self.drop = drop
     }
+    
+    func configureRoutes() {
+        let token = drop.grouped("token")
+    }
 }
