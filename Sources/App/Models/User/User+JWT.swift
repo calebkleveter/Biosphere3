@@ -14,7 +14,7 @@ extension User {
             "iat": .number(.int(createdAt)),
             "userEmail": .string(self.email),
             "userId": .number(.int(id)),
-            "expiration": .number(.int(expiration))
+            "exp": .number(.int(expiration))
             ])
         return payload
     }
