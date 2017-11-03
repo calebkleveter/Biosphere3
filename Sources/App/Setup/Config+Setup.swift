@@ -24,5 +24,6 @@ extension Config {
     private func setupPreparations() throws {
         preparations.append(User.self)
         preparations.append(Project.self)
+        preparePivots()
     }
 }
