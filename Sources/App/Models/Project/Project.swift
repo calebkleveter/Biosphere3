@@ -3,7 +3,13 @@ import FluentProvider
 final class Project: Model {
     let storage: Storage = Storage()
     
-    init() {}
+    let name: String
     
-    init(row: Row) throws {}
+    init(name: String) {
+        self.name = name
+    }
+    
+    init(row: Row) throws {
+        self.name = try row.get("name")
+    }
 }

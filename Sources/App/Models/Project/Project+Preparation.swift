@@ -4,6 +4,7 @@ extension Project: Preparation {
     static func prepare(_ database: Database) throws {
         try database.create(self, closure: { (project) in
             project.id()
+            project.string("name")
         })
     }
     
