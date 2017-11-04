@@ -13,6 +13,7 @@ extension User {
             "iss": "biosphere3",
             "iat": .number(.int(createdAt)),
             "userEmail": .string(self.email),
+            "userUsername": .string(self.username),
             "userId": .number(.int(id)),
             "exp": .number(.int(expiration))
             ])
