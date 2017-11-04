@@ -43,8 +43,11 @@ final class UserController {
         // Get the request's JWT token.
         let token = request.token
         
-        // Get the email from the token's payload and return it.
+        // Get the email and username from the token's payload.
         let email = try token.get(.email)
-        return try JSON(node: ["email": email])
+        let username = try token.get(.username)
+        
+        // Return the email and username and JSON format.
+        return try JSON(node: ["email": email, "username": username])
     }
 }
