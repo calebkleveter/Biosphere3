@@ -3,6 +3,7 @@ import Vapor
 extension Project: JSONConvertible {
     func makeJSON() throws -> JSON {
         var json = JSON()
+        try json.set("id", self.id?.wrapped ?? "null")
         try json.set("name", self.name)
         return json
     }
