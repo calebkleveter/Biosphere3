@@ -39,12 +39,12 @@ final class UserController {
     func authenticate(_ request: Request)throws -> ResponseRepresentable {
         // Get the data required for authenticating the user.
         guard let password = request.data["password"]?.string,
-              let username = request.data["username"]?.string else {
+              let email = request.data["email"]?.string else {
             // Not all data is present. Abort.
             throw Abort(.badRequest, reason: "Missing data in request body")
         }
         // Create a set of credentials from the fetched data and attempt to authenticate.
-        let credentials: Password = Password(username: username, password: password)
+        let credentials: Password = Password(username: email, password: password)
         let user = try User.authenticate(credentials)
         
         // Created a JWT for the user and return it in a JSON response.
