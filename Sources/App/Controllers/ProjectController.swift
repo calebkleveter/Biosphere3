@@ -19,18 +19,14 @@ final class ProjectController {
     func create(_ request: Request)throws -> ResponseRepresentable {
         // Get data needed for finding a user and creating a project.
         guard let name = request.data["name"]?.string,
-              request.token != "",
-              let tokenId = try request.token.get(.id).float
+              request.token != ""
               else {
                 // Data missing. Abort.
                 throw Abort.missingRequestData
         }
         
-        // Created an identifier from the tokenId and get the matching user.
-        let id: Identifier = Identifier.number(.int(Int(tokenId)))
-        guard let user = try User.find(id) else {
-            throw Abort.badUserID
-        }
+        // Get the user that matches the data in the request.
+        let user = try request.user()
         
         // Create a project with the name and user that were found
         let project = Project(name: name, user: user)
