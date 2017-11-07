@@ -46,7 +46,7 @@ final class UserController {
         guard let password = request.data["password"]?.string,
               let username = request.data["username"]?.string else {
             // Not all data is present. Abort.
-            throw Abort.badRequest
+            throw Abort(.badRequest, reason: "Missing data in request body")
         }
         // Create a set of credentials from the fetched data and attempt to authenticate.
         let credentials: Password = Password(username: username, password: password)
