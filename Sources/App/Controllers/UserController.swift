@@ -1,4 +1,5 @@
 import Vapor
+import AuthProvider
 
 final class UserController {
     let drop: Droplet
@@ -11,6 +12,7 @@ final class UserController {
         // Add public routes to 'user' droplet route group.
         let user = drop.grouped("user")
         user.post("create", handler: create)
+        user.post("authenticate", handler: authenticate)
         
         // Add protected routes to protected 'user' droplet route group.
         let protected = user.grouped(JWTMiddleware())
@@ -37,6 +39,23 @@ final class UserController {
             // An error occured while creating the user or their JWT token. Return the error.
             return try JSON(node: ["error": error])
         }
+    }
+    
+    func authenticate(_ request: Request)throws -> ResponseRepresentable {
+        // Get the data required for authenticating the user.
+        guard let password = request.data["password"]?.string,
+              let username = request.data["username"]?.string else {
+            // Not all data is present. Abort.
+            throw Abort.badRequest
+        }
+        // Create a set of credentials from the fetched data and attempt to authenticate.
+        let credentials: Password = Password(username: username, password: password)
+        let user = try User.authenticate(credentials)
+        
+        // Created a JWT for the user and return it in a JSON response.
+        let token = try user.jwt()
+        
+        return try JSON(node: ["token": token])
     }
     
     func me(_ request: Request)throws -> ResponseRepresentable {
