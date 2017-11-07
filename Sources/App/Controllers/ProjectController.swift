@@ -34,7 +34,8 @@ final class ProjectController {
         return try JSON(node:
             ["data":
                 ["name": project.name,
-                 "user_id": user.id ?? "null"]
+                 "id": project.id?.wrapped.string ?? "null",
+                 "user_id": user.id?.wrapped.string ?? "null"]
             ])
     }
 }
