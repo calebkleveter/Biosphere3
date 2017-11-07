@@ -24,21 +24,16 @@ final class UserController {
         guard let username = request.data["username"]?.string,
               let password = request.data["password"]?.string,
               let email = request.data["email"]?.string else {
-                // Data required to create a new user is missing. Return an error.
-                return try JSON(node: ["error": "Bad request. Missing required data"])
+                // Data required to create a new user is missing. Abort.
+                throw Abort(.badRequest, reason: "Missing data in request body")
         }
-        do {
-            // Created a new user from the request data.
-            let user = try User(username: username, email: email, password: password)
-            try user.save()
-            
-            // Create a JWT token for the new user and return it.
-            let token = try user.jwt()
-            return try JSON(node: ["token": token])
-        } catch let error {
-            // An error occured while creating the user or their JWT token. Return the error.
-            return try JSON(node: ["error": error])
-        }
+        // Created a new user from the request data.
+        let user = try User(username: username, email: email, password: password)
+        try user.save()
+        
+        // Create a JWT token for the new user and return it.
+        let token = try user.jwt()
+        return try JSON(node: ["token": token])
     }
     
     func authenticate(_ request: Request)throws -> ResponseRepresentable {
