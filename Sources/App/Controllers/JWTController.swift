@@ -17,8 +17,8 @@ final class JWTController {
     func verify(_ request: Request)throws -> ResponseRepresentable {
         // Get the JWT token from the request object.
         guard let jwt = request.headers["Authorization"]?.string else {
-            // 'Authorization' header does not exist. Return an error.
-            return try JSON(node: ["error": "Bad request. Missing required header"])
+            // 'Authorization' header does not exist. Abort.
+            throw Abort(.badRequest, reason: "Missing Authorization header")
         }
         do {
             // Verify the JWT token.
