@@ -20,14 +20,14 @@ final class ProjectController {
         // Get data needed for finding a user and creating a project.
         guard let name = request.data["name"]?.string,
               request.token != "",
-              let tokenId = try Int(request.token.get(.id))
+              let tokenId = try request.token.get(.id).float
               else {
                 // Data missing. Abort.
                 throw Abort.missingRequestData
         }
         
         // Created an identifier from the tokenId and get the matching user.
-        let id: Identifier = Identifier.number(.int(tokenId))
+        let id: Identifier = Identifier.number(.int(Int(tokenId)))
         guard let user = try User.find(id) else {
             throw Abort.badUserID
         }
