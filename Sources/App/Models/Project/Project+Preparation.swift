@@ -5,6 +5,7 @@ extension Project: Preparation {
         try database.create(self, closure: { (project) in
             project.id()
             project.string("name")
+            project.parent(User.self)
         })
     }
     
