@@ -10,7 +10,7 @@ final class UserController {
     
     func configureRoutes() {
         // Add public routes to 'user' droplet route group.
-        let user = drop.grouped("user")
+        let user = drop.grouped("user").grouped(APIErrorMiddleware())
         user.post("create", handler: create)
         user.post("authenticate", handler: authenticate)
         
