@@ -17,6 +17,7 @@ final class UserController {
         // Add protected routes to protected 'user' droplet route group.
         let protected = user.grouped(JWTMiddleware())
         protected.get("me", handler: me)
+        protected.get("projects", handler: projects)
     }
     
     func create(_ request: Request)throws -> ResponseRepresentable {
@@ -53,6 +54,8 @@ final class UserController {
         return try JSON(node: ["token": token])
     }
     
+    // MARK: - Protected
+    
     func me(_ request: Request)throws -> ResponseRepresentable {
         // Get the request's JWT token.
         let token = request.token
@@ -63,5 +66,13 @@ final class UserController {
         
         // Return the email and username and JSON format.
         return try JSON(node: ["email": email, "username": username])
+    }
+    
+    func projects(_ request: Request)throws -> ResponseRepresentable {
+        guard request.token != "" else {
+            throw Abort.missingJWTToken
+        }
+        let user = try request.user()
+        return try user.projects.all().makeJSON()
     }
 }
