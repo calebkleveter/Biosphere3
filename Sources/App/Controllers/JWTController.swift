@@ -10,7 +10,7 @@ final class JWTController {
     
     func configureRoutes() {
         // Add contoller routes to 'token' droplet group.
-        let token = drop.grouped("token")
+        let token = drop.grouped("token").grouped(APIErrorMiddleware())
         token.get("verify", handler: verify)
     }
     
